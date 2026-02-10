@@ -1,0 +1,471 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { Play, RotateCcw, Brain, ShieldAlert, Zap, Award, ArrowRight, Activity, Target, BookOpen, Quote, Layers } from 'lucide-react';
+
+/**
+ * PARADOX ORBS v5.6 - "Final Synthesis"
+ * Anchored on Smith & Lewis (2011) and Smith, Lewis, & Tushman (2016)
+ */
+
+const SCENARIOS = [
+  {
+    id: 1,
+    category: "Product & Tech",
+    context: "Environmental Trigger: SCARCITY. A major release is due. How do you balance the technical integrity with the market deadline?",
+    poles: [
+      { label: "Innovation Speed", type: "core" },
+      { label: "System Reliability", type: "core" }
+    ],
+    decoys: [
+      { label: "Technical Debt", type: "decoy" },
+      { label: "Feature Creep", type: "decoy" }
+    ],
+    synthesis: { 
+      label: "Sustainable Velocity", 
+      desc: "Managing technical debt as a strategic lever. This requires purposeful 'splitting' to protect R&D from maintenance creep.",
+      citation: "Smith, Lewis, & Tushman (2016). 'Both/And Leadership.' Harvard Business Review."
+    },
+    difficulty: 1,
+    speed: 0.4
+  },
+  {
+    id: 2,
+    category: "People & Culture",
+    context: "Environmental Trigger: CHANGE. The team is under-performing but morale is fragile. How do you handle the review?",
+    poles: [
+      { label: "High Standards", type: "core" },
+      { label: "Psychological Safety", type: "core" }
+    ],
+    decoys: [
+      { label: "Performance PIP", type: "decoy" },
+      { label: "Toxic Positivity", type: "decoy" }
+    ],
+    synthesis: { 
+      label: "Compassionate Accountability", 
+      desc: "Integrating interpersonal warmth with high expectations. This avoids 'Ruinous Empathy' and maintains professional rigor.",
+      citation: "Smith & Lewis (2011). 'Toward a Theory of Paradox: A Dynamic Equilibrium Model of Organizing.'"
+    },
+    difficulty: 1,
+    speed: 0.5
+  },
+  {
+    id: 3,
+    category: "Strategy & Growth",
+    context: "Environmental Trigger: PLURALITY. Investors want growth; the Finance team wants efficiency. What is the path?",
+    poles: [
+      { label: "Hyper-Growth", type: "core" },
+      { label: "Profitability", type: "core" }
+    ],
+    decoys: [
+      { label: "Aggressive Hiring", type: "decoy" },
+      { label: "Total Cost Cut", type: "decoy" },
+      { label: "Market Parity", type: "decoy" }
+    ],
+    synthesis: { 
+      label: "Efficient Scale", 
+      desc: "Using unit economics to fuel expansion. Avoiding the 'Vicious Cycle' of burning cash without a retention engine.",
+      citation: "Andriopoulos & Lewis (2009). 'Exploitation-Exploration Tensions and Organizational Ambidexterity.'"
+    },
+    difficulty: 2,
+    speed: 0.7
+  },
+  {
+    id: 4,
+    category: "Leadership & Personal",
+    context: "Environmental Trigger: COMPLEXITY. You are the face of a pivot. How do you project yourself to the team?",
+    poles: [
+      { label: "Bold Confidence", type: "core" },
+      { label: "Radical Humility", type: "core" }
+    ],
+    decoys: [
+      { label: "Static Planning", type: "decoy" },
+      { label: "Top-Down Order", type: "decoy" },
+      { label: "Ego Protection", type: "decoy" }
+    ],
+    synthesis: { 
+      label: "Adaptive Leadership", 
+      desc: "Accepting personal paradox. Being confident enough to lead, yet humble enough to listen and adapt to new data.",
+      citation: "Zhang et al. (2015). 'CEO Paradoxical Leadership and Organizational Ambidexterity.'"
+    },
+    difficulty: 2,
+    speed: 0.8
+  },
+  {
+    id: 5,
+    category: "ADVANCED: Multi-Paradox Mode",
+    context: "Environmental Trigger: POLITICAL CRISIS. A global expansion meets local regulatory resistance and ethical concerns. Balance all three.",
+    poles: [
+      { label: "Centralized Speed", type: "core" },
+      { label: "Local Flexibility", type: "core" },
+      { label: "Brand Consistency", type: "core" }
+    ],
+    decoys: [
+      { label: "Full Autonomy", type: "decoy" },
+      { label: "Strict Parity", type: "decoy" },
+      { label: "Outsourcing", type: "decoy" }
+    ],
+    synthesis: { 
+      label: "Glocal Governance", 
+      desc: "Simultaneous pursuit of global scale and local relevance. Requires high 'Cognitive Complexity' to navigate multi-pole tensions.",
+      citation: "Waldman & Bowen (2016). 'Learning to Be a Paradoxical Leader.'"
+    },
+    difficulty: 3,
+    speed: 1.1
+  }
+];
+
+const ORB_COLORS = [
+  'from-blue-600 to-blue-800',
+  'from-emerald-600 to-emerald-800',
+  'from-purple-600 to-purple-800',
+  'from-rose-600 to-rose-800',
+  'from-amber-600 to-amber-800',
+  'from-cyan-600 to-cyan-800',
+  'from-orange-600 to-orange-800',
+  'from-indigo-600 to-indigo-800'
+];
+
+export default function App() {
+  const [gameState, setGameState] = useState('menu'); 
+  const [level, setLevel] = useState(0);
+  const [score, setScore] = useState(0);
+  const [feedback, setFeedback] = useState(null); 
+  const [timeLeft, setTimeLeft] = useState(15);
+  const [activeOrbs, setActiveOrbs] = useState([]);
+  const [isDragging, setIsDragging] = useState(null); 
+  
+  const containerRef = useRef(null);
+  const animationFrameRef = useRef(null);
+
+  useEffect(() => {
+    if (gameState !== 'playing') {
+      if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
+      return;
+    }
+
+    const updatePhysics = () => {
+      setActiveOrbs(prev => {
+        const nextOrbs = prev.map(orb => ({ ...orb }));
+        const scenario = SCENARIOS[level];
+        if (!scenario) return prev;
+
+        nextOrbs.forEach((orb, i) => {
+          if (isDragging === orb.id) return;
+
+          orb.x += orb.vx;
+          orb.y += orb.vy;
+
+          nextOrbs.forEach((other, j) => {
+            if (i === j) return;
+            const dx = orb.x - other.x;
+            const dy = orb.y - other.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            const repelThreshold = 18;
+
+            if (dist < repelThreshold && dist > 2) {
+              const force = (repelThreshold - dist) * 0.012 * scenario.speed;
+              orb.vx += (dx / dist) * force;
+              orb.vy += (dy / dist) * force;
+            }
+          });
+
+          if (orb.x <= 10) { orb.x = 10; orb.vx = Math.abs(orb.vx); }
+          if (orb.x >= 90) { orb.x = 90; orb.vx = -Math.abs(orb.vx); }
+          if (orb.y <= 15) { orb.y = 15; orb.vy = Math.abs(orb.vy); }
+          if (orb.y >= 85) { orb.y = 85; orb.vy = -Math.abs(orb.vy); }
+
+          orb.vx *= 0.98;
+          orb.vy *= 0.98;
+        });
+
+        return nextOrbs;
+      });
+
+      animationFrameRef.current = requestAnimationFrame(updatePhysics);
+    };
+
+    animationFrameRef.current = requestAnimationFrame(updatePhysics);
+    return () => cancelAnimationFrame(animationFrameRef.current);
+  }, [gameState, isDragging, level]);
+
+  useEffect(() => {
+    let timer;
+    if (gameState === 'playing' && timeLeft > 0) {
+      timer = setInterval(() => setTimeLeft(prev => prev - 1), 1000);
+    } else if (timeLeft === 0 && gameState === 'playing') {
+      handleTimeOut();
+    }
+    return () => clearInterval(timer);
+  }, [gameState, timeLeft]);
+
+  const startLevel = (lvlIndex) => {
+    if (lvlIndex >= SCENARIOS.length) {
+      setGameState('gameover');
+      return;
+    }
+    
+    const scenario = SCENARIOS[lvlIndex];
+    const speed = scenario.speed;
+    const shuffledColors = [...ORB_COLORS].sort(() => Math.random() - 0.5);
+    
+    const allItems = [...scenario.poles, ...scenario.decoys].map((item, idx) => ({
+      ...item,
+      id: `orb-${idx}-${Math.random()}`,
+      color: shuffledColors[idx % shuffledColors.length],
+      x: 20 + Math.random() * 60,
+      y: 20 + Math.random() * 60,
+      vx: (Math.random() - 0.5) * speed,
+      vy: (Math.random() - 0.5) * speed
+    }));
+
+    setActiveOrbs(allItems);
+    setLevel(lvlIndex);
+    setTimeLeft(Math.max(10, 25 - (lvlIndex * 2))); 
+    setGameState('playing');
+    setFeedback(null);
+  };
+
+  const handleTimeOut = () => {
+    setFeedback({
+      type: 'failure',
+      title: 'Structural Inertia',
+      message: 'Management Paralysis.',
+      detail: "Delayed response leads to the 'vicious cycle' of worsening organizational tensions.",
+      citation: "Smith & Lewis (2011). 'Toward a Theory of Paradox.'"
+    });
+    setGameState('feedback');
+  };
+
+  const handleDragStart = (e, id) => {
+    e.stopPropagation(); 
+    setIsDragging(id);
+  };
+
+  const handleDragMove = (e) => {
+    if (!isDragging || !containerRef.current) return;
+
+    const rect = containerRef.current.getBoundingClientRect();
+    const clientX = (e.touches ? e.touches[0].clientX : e.clientX);
+    const clientY = (e.touches ? e.touches[0].clientY : e.clientY);
+
+    const x = ((clientX - rect.left) / rect.width) * 100;
+    const y = ((clientY - rect.top) / rect.height) * 100;
+
+    setActiveOrbs(prev => {
+        const updated = prev.map(orb => 
+          orb.id === isDragging ? { ...orb, x, y, vx: 0, vy: 0 } : orb
+        );
+        checkCollision(x, y, updated);
+        return updated;
+    });
+  };
+
+  const checkCollision = (dragX, dragY, currentOrbs) => {
+    const draggedOrb = currentOrbs.find(o => o.id === isDragging);
+    if (!draggedOrb) return;
+
+    const hit = currentOrbs.find(other => {
+      if (other.id === isDragging) return false;
+      const dx = dragX - other.x;
+      const dy = dragY - other.y;
+      return Math.sqrt(dx * dx + dy * dy) < 10;
+    });
+
+    if (hit) {
+      if (draggedOrb.type === 'core' && hit.type === 'core') {
+        const totalCoresOnBoard = currentOrbs.filter(o => o.type === 'core').length;
+        if (totalCoresOnBoard === 2) {
+          handleMergeSuccess();
+        } else {
+          setActiveOrbs(prev => prev.filter(o => o.id !== hit.id));
+        }
+      } else if (hit.type === 'decoy') {
+        handleMergeFailure(draggedOrb, hit);
+      }
+    }
+  };
+
+  const handleMergeSuccess = () => {
+    const scenario = SCENARIOS[level];
+    setScore(prev => prev + 300 + (timeLeft * 20));
+    setFeedback({
+      type: 'success',
+      title: scenario.synthesis.label,
+      message: 'Virtuous Cycle Achieved!',
+      detail: scenario.synthesis.desc,
+      citation: scenario.synthesis.citation
+    });
+    setGameState('feedback');
+    setIsDragging(null);
+  };
+
+  const handleMergeFailure = (o1, o2) => {
+    setFeedback({
+      type: 'failure',
+      title: 'Defensive Splitting',
+      message: `Collision: ${o1.label} + ${o2.label}`,
+      detail: "Favoring one pole while colliding with a distraction leads to a loss of synthesis.",
+      citation: "Lewis (2000). 'Exploring Paradox: Toward a More Comprehensive Guide.'"
+    });
+    setGameState('feedback');
+    setIsDragging(null);
+  };
+
+  return (
+    <div 
+      className="h-screen w-full bg-slate-50 text-slate-900 font-sans flex flex-col select-none overflow-hidden"
+      onMouseMove={handleDragMove}
+      onMouseUp={() => setIsDragging(null)}
+      onTouchMove={handleDragMove}
+      onTouchEnd={() => setIsDragging(null)}
+    >
+      <header className="bg-white border-b border-slate-200 px-6 py-4 flex justify-between items-center shrink-0 shadow-sm z-30">
+        <div className="flex items-center gap-3">
+          <div className="bg-indigo-600 p-2 rounded-lg shadow-md shadow-indigo-100">
+            <Target className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <h1 className="text-sm font-black tracking-tighter uppercase text-slate-900 leading-none">Paradox Orbs v5.6</h1>
+            <p className="text-[9px] text-slate-500 font-bold tracking-widest mt-1">EXECUTIVE SIMULATION CORE</p>
+          </div>
+        </div>
+        <div className="flex gap-8 items-center">
+          <div className="text-right">
+            <div className="text-[9px] text-slate-400 font-black uppercase tracking-widest">Complexity</div>
+            <div className="text-xl font-black leading-none">{level + 1}</div>
+          </div>
+          <div className="text-right border-l border-slate-200 pl-8">
+            <div className="text-[9px] text-slate-400 font-black uppercase tracking-widest">Cognition</div>
+            <div className="text-xl font-black leading-none text-indigo-600 tracking-tighter">{score}</div>
+          </div>
+        </div>
+      </header>
+
+      <main className="flex-1 relative flex flex-col overflow-hidden">
+        {gameState === 'menu' && (
+          <div className="flex-1 flex items-center justify-center p-6">
+            <div className="max-w-md w-full bg-white rounded-3xl shadow-2xl border border-slate-100 p-12 text-center">
+              <div className="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <Layers className="w-8 h-8 text-indigo-600" />
+              </div>
+              <h2 className="text-3xl font-black text-slate-900 mb-4 tracking-tight">Paradox Orbs</h2>
+              <p className="text-slate-500 mb-8 leading-relaxed text-sm">
+                Aim to move beyond "Either/Or" thinking. Identify competing demands and bring them together before the time runs out.
+              </p>
+              <button 
+                onClick={() => startLevel(0)}
+                className="w-full bg-slate-900 hover:bg-black text-white py-4 rounded-xl font-bold transition-all shadow-lg active:scale-95"
+              >
+                Launch Simulation
+              </button>
+            </div>
+          </div>
+        )}
+
+        {gameState === 'playing' && (
+          <div className="h-full w-full flex flex-col relative">
+            <div className="w-full bg-white/95 backdrop-blur-md border-b border-slate-100 p-6 flex flex-col items-center z-20">
+              <div className="px-4 py-1.5 bg-indigo-50 text-indigo-700 rounded-full text-[10px] font-black uppercase tracking-widest mb-3 border border-indigo-100">
+                {SCENARIOS[level].category}
+              </div>
+              <h2 className="text-base md:text-xl font-bold text-slate-800 text-center max-w-2xl px-4 leading-snug mb-1">
+                {SCENARIOS[level].context}
+              </h2>
+              
+              <div className="mt-4 w-full max-w-sm h-2 bg-slate-100 rounded-full overflow-hidden relative shadow-inner">
+                <div 
+                  className={`h-full transition-all duration-1000 linear ${timeLeft < 5 ? 'bg-rose-500' : 'bg-indigo-600'}`}
+                  style={{ width: `${(timeLeft / (Math.max(10, 25 - (level * 2)))) * 100}%` }}
+                />
+              </div>
+            </div>
+
+            <div ref={containerRef} className="flex-1 w-full relative overflow-hidden bg-[radial-gradient(#e2e8f0_1.5px,transparent_1.5px)] [background-size:32px_32px]">
+              {activeOrbs.map((orb) => (
+                <div
+                  key={orb.id}
+                  onMouseDown={(e) => handleDragStart(e, orb.id)}
+                  onTouchStart={(e) => handleDragStart(e, orb.id)}
+                  className={`absolute w-24 h-24 md:w-36 md:h-36 rounded-full flex items-center justify-center p-5 text-center shadow-xl transition-transform cursor-grab active:cursor-grabbing
+                    ${isDragging === orb.id ? 'scale-110 z-40 ring-8 ring-indigo-500/10' : 'z-10 hover:brightness-105'}
+                    bg-gradient-to-br ${orb.color} border-2 border-white/20`}
+                  style={{
+                    left: `${orb.x}%`,
+                    top: `${orb.y}%`,
+                    transform: 'translate(-50%, -50%)',
+                    touchAction: 'none'
+                  }}
+                >
+                  <span className="font-black text-[10px] md:text-xs text-white leading-tight uppercase tracking-tight drop-shadow-lg">
+                    {orb.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {gameState === 'feedback' && feedback && (
+          <div className="absolute inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-6">
+            <div className={`max-w-md w-full p-10 rounded-[2.5rem] shadow-2xl bg-white border-t-[12px] ${feedback.type === 'success' ? 'border-t-emerald-500' : 'border-t-rose-500'}`}>
+              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-md ${feedback.type === 'success' ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600'}`}>
+                {feedback.type === 'success' ? <Zap className="w-7 h-7" /> : <ShieldAlert className="w-7 h-7" />}
+              </div>
+              <h3 className="text-2xl font-black mb-1 text-slate-900 leading-tight">{feedback.title}</h3>
+              <p className={`text-base font-bold mb-4 ${feedback.type === 'success' ? 'text-emerald-600' : 'text-rose-600'}`}>{feedback.message}</p>
+              
+              <div className="bg-slate-50 p-6 rounded-2xl text-xs text-slate-600 mb-6 border border-slate-100 leading-relaxed italic relative">
+                <Quote className="absolute -top-3 -left-1 w-6 h-6 text-slate-200 fill-slate-200" />
+                "{feedback.detail}"
+              </div>
+
+              <div className="mb-8 p-3 bg-slate-100/50 rounded-lg border-l-4 border-slate-300">
+                <div className="text-[10px] font-black uppercase text-slate-400 tracking-widest mb-1 flex items-center gap-1">
+                  <BookOpen className="w-3 h-3" /> Academic Source
+                </div>
+                <div className="text-[10px] text-slate-500 leading-tight font-medium">
+                  {feedback.citation}
+                </div>
+              </div>
+
+              <button 
+                onClick={feedback.type === 'failure' ? () => startLevel(level) : () => startLevel(level + 1)} 
+                className={`w-full py-4 rounded-xl font-black flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95 ${feedback.type === 'success' ? 'bg-emerald-500 hover:bg-emerald-600 text-white' : 'bg-slate-900 hover:bg-black text-white'}`}
+              >
+                {feedback.type === 'failure' ? "Try Again" : "Next Level"}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {gameState === 'gameover' && (
+          <div className="flex-1 flex items-center justify-center p-6 text-center">
+            <div className="max-w-lg w-full bg-white p-12 rounded-[3rem] shadow-2xl border border-slate-100">
+              <div className="w-20 h-20 bg-indigo-50 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-indigo-100">
+                <Award className="w-10 h-10 text-indigo-600" />
+              </div>
+              <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tighter">TRAINING COMPLETE</h2>
+              <div className="bg-indigo-600 p-10 rounded-[2.5rem] mb-10 shadow-2xl shadow-indigo-200">
+                <div className="text-[10px] uppercase text-indigo-200 font-black tracking-widest mb-1">Final Cognition Score</div>
+                <div className="text-7xl font-black text-white tracking-tighter">{score}</div>
+              </div>
+              <button 
+                onClick={() => startLevel(0)}
+                className="w-full bg-slate-900 text-white py-5 rounded-2xl font-black text-lg shadow-xl hover:bg-black transition-all mb-4"
+              >
+                Restart Training
+              </button>
+            </div>
+          </div>
+        )}
+      </main>
+
+      <footer className="bg-white border-t border-slate-200 py-4 px-6 flex justify-between items-center shrink-0 text-[9px] font-black text-slate-400 uppercase tracking-widest">
+        <div className="flex items-center gap-2.5">
+          <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
+          <span>Simulation Active</span>
+        </div>
+        <span>v5.6 // Smith & Lewis (2011)</span>
+      </footer>
+    </div>
+  );
+}
