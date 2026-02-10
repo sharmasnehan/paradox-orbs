@@ -124,17 +124,32 @@ const ORB_COLORS = [
   'from-indigo-600 to-indigo-800'
 ];
 
+const PASSWORD = 'paradox'; // Change this to your desired password
+
 export default function App() {
-  const [gameState, setGameState] = useState('menu'); 
+  const [gameState, setGameState] = useState('password'); 
   const [level, setLevel] = useState(0);
   const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState(null); 
   const [timeLeft, setTimeLeft] = useState(15);
   const [activeOrbs, setActiveOrbs] = useState([]);
-  const [isDragging, setIsDragging] = useState(null); 
+  const [isDragging, setIsDragging] = useState(null);
+  const [passwordInput, setPasswordInput] = useState('');
+  const [passwordError, setPasswordError] = useState(false);
   
   const containerRef = useRef(null);
   const animationFrameRef = useRef(null);
+
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault();
+    if (passwordInput.toLowerCase() === PASSWORD.toLowerCase()) {
+      setGameState('menu');
+      setPasswordError(false);
+    } else {
+      setPasswordError(true);
+      setPasswordInput('');
+    }
+  };
 
   useEffect(() => {
     if (gameState !== 'playing') {
@@ -341,6 +356,46 @@ export default function App() {
       </header>
 
       <main className="flex-1 relative flex flex-col overflow-hidden">
+        {gameState === 'password' && (
+          <div className="flex-1 flex items-center justify-center p-6 bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900">
+            <div className="max-w-sm w-full">
+              <div className="text-center mb-8">
+                <div className="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-3xl flex items-center justify-center mx-auto mb-6 border border-white/20">
+                  <Target className="w-10 h-10 text-white" />
+                </div>
+                <h1 className="text-2xl font-black text-white tracking-tight mb-2">PARADOX ORBS</h1>
+                <p className="text-slate-400 text-xs uppercase tracking-widest">Executive Simulation Core</p>
+              </div>
+              
+              <form onSubmit={handlePasswordSubmit} className="space-y-4">
+                <div>
+                  <input
+                    type="password"
+                    value={passwordInput}
+                    onChange={(e) => setPasswordInput(e.target.value)}
+                    placeholder="Enter access code"
+                    className={`w-full px-6 py-4 bg-white/10 backdrop-blur-sm border-2 rounded-xl text-white placeholder-slate-400 text-center font-mono tracking-widest focus:outline-none focus:border-indigo-400 transition-all ${passwordError ? 'border-rose-500 animate-shake' : 'border-white/20'}`}
+                    autoFocus
+                  />
+                  {passwordError && (
+                    <p className="text-rose-400 text-xs text-center mt-2 font-medium">Access denied. Try again.</p>
+                  )}
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-white text-slate-900 py-4 rounded-xl font-black transition-all hover:bg-indigo-100 active:scale-95 shadow-lg"
+                >
+                  Authenticate
+                </button>
+              </form>
+              
+              <p className="text-slate-500 text-[10px] text-center mt-8 uppercase tracking-widest">
+                Authorized personnel only
+              </p>
+            </div>
+          </div>
+        )}
+
         {gameState === 'menu' && (
           <div className="flex-1 flex items-center justify-center p-6">
             <div className="max-w-md w-full bg-white rounded-3xl shadow-2xl border border-slate-100 p-12 text-center">
