@@ -124,7 +124,7 @@ const ORB_COLORS = [
   'from-indigo-600 to-indigo-800'
 ];
 
-const PASSWORD = 'paradox'; // Change this to your desired password
+const PASSWORD = 'LDCFINAL';
 
 export default function App() {
   const [gameState, setGameState] = useState('password'); 
