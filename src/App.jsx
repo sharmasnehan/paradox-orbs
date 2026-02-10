@@ -321,15 +321,18 @@ export default function App() {
       onTouchEnd={() => setIsDragging(null)}
     >
       <header className="bg-white border-b border-slate-200 px-6 py-4 flex justify-between items-center shrink-0 shadow-sm z-30">
-        <div className="flex items-center gap-3">
+        <button 
+          onClick={() => { setGameState('menu'); setIsDragging(null); }}
+          className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+        >
           <div className="bg-indigo-600 p-2 rounded-lg shadow-md shadow-indigo-100">
             <Target className="w-5 h-5 text-white" />
           </div>
-          <div>
+          <div className="text-left">
             <h1 className="text-sm font-black tracking-tighter uppercase text-slate-900 leading-none">Paradox Orbs v5.6</h1>
             <p className="text-[9px] text-slate-500 font-bold tracking-widest mt-1">EXECUTIVE SIMULATION CORE</p>
           </div>
-        </div>
+        </button>
         <div className="flex gap-8 items-center">
           <div className="text-right">
             <div className="text-[9px] text-slate-400 font-black uppercase tracking-widest">Complexity</div>
@@ -384,18 +387,41 @@ export default function App() {
         )}
 
         {gameState === 'menu' && (
-          <div className="flex-1 flex items-center justify-center p-6">
-            <div className="max-w-md w-full bg-white rounded-3xl shadow-2xl border border-slate-100 p-12 text-center">
-              <div className="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <Layers className="w-8 h-8 text-indigo-600" />
+          <div className="flex-1 flex items-center justify-center p-6 overflow-y-auto">
+            <div className="max-w-lg w-full bg-white rounded-3xl shadow-2xl border border-slate-100 p-10 md:p-12">
+              <div className="text-center mb-8">
+                <div className="w-20 h-20 bg-indigo-50 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-indigo-100">
+                  <Layers className="w-10 h-10 text-indigo-600" />
+                </div>
+                <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-2 tracking-tight">Paradox Orbs</h2>
+                <p className="text-slate-400 text-sm uppercase tracking-widest font-bold">Executive Simulation</p>
               </div>
-              <h2 className="text-3xl font-black text-slate-900 mb-4 tracking-tight">Paradox Orbs</h2>
-              <p className="text-slate-500 mb-8 leading-relaxed text-sm">
-                Aim to move beyond "Either/Or" thinking. Identify competing demands and bring them together before the time runs out.
+
+              <div className="bg-slate-50 rounded-2xl p-6 mb-8 border border-slate-100">
+                <h3 className="text-lg font-black text-slate-800 mb-4 uppercase tracking-wide">How to Play</h3>
+                <ul className="space-y-4 text-left">
+                  <li className="flex gap-3">
+                    <span className="w-7 h-7 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-black shrink-0">1</span>
+                    <span className="text-slate-600 text-base leading-snug"><strong className="text-slate-800">Find the core tensions</strong> — identify the two (or three) orbs that represent competing but valid demands.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="w-7 h-7 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-black shrink-0">2</span>
+                    <span className="text-slate-600 text-base leading-snug"><strong className="text-slate-800">Drag them together</strong> — merge the core poles to achieve synthesis. Avoid the decoy options!</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="w-7 h-7 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-black shrink-0">3</span>
+                    <span className="text-slate-600 text-base leading-snug"><strong className="text-slate-800">Beat the clock</strong> — complete each level before time runs out to maximize your score.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <p className="text-slate-500 text-center text-sm mb-6 leading-relaxed">
+                Move beyond "Either/Or" thinking. Embrace "Both/And" leadership.
               </p>
+
               <button 
                 onClick={() => startLevel(0)}
-                className="w-full bg-slate-900 hover:bg-black text-white py-4 rounded-xl font-bold transition-all shadow-lg active:scale-95"
+                className="w-full bg-slate-900 hover:bg-black text-white py-4 rounded-xl font-black text-lg transition-all shadow-lg active:scale-95"
               >
                 Launch Simulation
               </button>
