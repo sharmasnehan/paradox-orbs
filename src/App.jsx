@@ -330,7 +330,7 @@ export default function App() {
           </div>
           <div className="text-left">
             <h1 className="text-sm font-black tracking-tighter uppercase text-slate-900 leading-none">Paradox Orbs v5.6</h1>
-            <p className="text-[9px] text-slate-500 font-bold tracking-widest mt-1">EXECUTIVE SIMULATION CORE</p>
+            <p className="text-[9px] text-slate-500 font-bold tracking-widest mt-1">EDUCATIONAL SIMULATION</p>
           </div>
         </button>
         <div className="flex gap-8 items-center">
@@ -354,7 +354,7 @@ export default function App() {
                   <Target className="w-10 h-10 text-white" />
                 </div>
                 <h1 className="text-2xl font-black text-white tracking-tight mb-2">PARADOX ORBS</h1>
-                <p className="text-slate-400 text-xs uppercase tracking-widest">Executive Simulation Core</p>
+                <p className="text-slate-400 text-xs uppercase tracking-widest">Educational Simulation</p>
               </div>
               
               <form onSubmit={handlePasswordSubmit} className="space-y-4">
@@ -394,7 +394,7 @@ export default function App() {
                   <Layers className="w-10 h-10 text-indigo-600" />
                 </div>
                 <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-2 tracking-tight">Paradox Orbs</h2>
-                <p className="text-slate-400 text-sm uppercase tracking-widest font-bold">Executive Simulation</p>
+                <p className="text-slate-400 text-sm uppercase tracking-widest font-bold">Educational Simulation</p>
               </div>
 
               <div className="bg-slate-50 rounded-2xl p-6 mb-8 border border-slate-100">
