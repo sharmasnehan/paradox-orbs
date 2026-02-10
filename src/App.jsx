@@ -1,10 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, RotateCcw, Brain, ShieldAlert, Zap, Award, ArrowRight, Activity, Target, BookOpen, Quote, Layers } from 'lucide-react';
-
-/**
- * PARADOX ORBS v5.6 - "Final Synthesis"
- * Anchored on Smith & Lewis (2011) and Smith, Lewis, & Tushman (2016)
- */
+import { ShieldAlert, Zap, Award, Target, Quote, Layers } from 'lucide-react';
 
 const SCENARIOS = [
   {
@@ -21,8 +16,7 @@ const SCENARIOS = [
     ],
     synthesis: { 
       label: "Sustainable Velocity", 
-      desc: "Managing technical debt as a strategic lever. This requires purposeful 'splitting' to protect R&D from maintenance creep.",
-      citation: "Smith, Lewis, & Tushman (2016). 'Both/And Leadership.' Harvard Business Review."
+      desc: "Managing technical debt as a strategic lever. This requires purposeful 'splitting' to protect R&D from maintenance creep."
     },
     difficulty: 1,
     speed: 0.4
@@ -41,8 +35,7 @@ const SCENARIOS = [
     ],
     synthesis: { 
       label: "Compassionate Accountability", 
-      desc: "Integrating interpersonal warmth with high expectations. This avoids 'Ruinous Empathy' and maintains professional rigor.",
-      citation: "Smith & Lewis (2011). 'Toward a Theory of Paradox: A Dynamic Equilibrium Model of Organizing.'"
+      desc: "Integrating interpersonal warmth with high expectations. This avoids 'Ruinous Empathy' and maintains professional rigor."
     },
     difficulty: 1,
     speed: 0.5
@@ -62,8 +55,7 @@ const SCENARIOS = [
     ],
     synthesis: { 
       label: "Efficient Scale", 
-      desc: "Using unit economics to fuel expansion. Avoiding the 'Vicious Cycle' of burning cash without a retention engine.",
-      citation: "Andriopoulos & Lewis (2009). 'Exploitation-Exploration Tensions and Organizational Ambidexterity.'"
+      desc: "Using unit economics to fuel expansion. Avoiding the 'Vicious Cycle' of burning cash without a retention engine."
     },
     difficulty: 2,
     speed: 0.7
@@ -83,8 +75,7 @@ const SCENARIOS = [
     ],
     synthesis: { 
       label: "Adaptive Leadership", 
-      desc: "Accepting personal paradox. Being confident enough to lead, yet humble enough to listen and adapt to new data.",
-      citation: "Zhang et al. (2015). 'CEO Paradoxical Leadership and Organizational Ambidexterity.'"
+      desc: "Accepting personal paradox. Being confident enough to lead, yet humble enough to listen and adapt to new data."
     },
     difficulty: 2,
     speed: 0.8
@@ -105,8 +96,7 @@ const SCENARIOS = [
     ],
     synthesis: { 
       label: "Glocal Governance", 
-      desc: "Simultaneous pursuit of global scale and local relevance. Requires high 'Cognitive Complexity' to navigate multi-pole tensions.",
-      citation: "Waldman & Bowen (2016). 'Learning to Be a Paradoxical Leader.'"
+      desc: "Simultaneous pursuit of global scale and local relevance. Requires high 'Cognitive Complexity' to navigate multi-pole tensions."
     },
     difficulty: 3,
     speed: 1.1
@@ -244,8 +234,7 @@ export default function App() {
       type: 'failure',
       title: 'Structural Inertia',
       message: 'Management Paralysis.',
-      detail: "Delayed response leads to the 'vicious cycle' of worsening organizational tensions.",
-      citation: "Smith & Lewis (2011). 'Toward a Theory of Paradox.'"
+      detail: "Delayed response leads to the 'vicious cycle' of worsening organizational tensions."
     });
     setGameState('feedback');
   };
@@ -306,8 +295,7 @@ export default function App() {
       type: 'success',
       title: scenario.synthesis.label,
       message: 'Virtuous Cycle Achieved!',
-      detail: scenario.synthesis.desc,
-      citation: scenario.synthesis.citation
+      detail: scenario.synthesis.desc
     });
     setGameState('feedback');
     setIsDragging(null);
@@ -318,8 +306,7 @@ export default function App() {
       type: 'failure',
       title: 'Defensive Splitting',
       message: `Collision: ${o1.label} + ${o2.label}`,
-      detail: "Favoring one pole while colliding with a distraction leads to a loss of synthesis.",
-      citation: "Lewis (2000). 'Exploring Paradox: Toward a More Comprehensive Guide.'"
+      detail: "Favoring one pole while colliding with a distraction leads to a loss of synthesis."
     });
     setGameState('feedback');
     setIsDragging(null);
@@ -468,18 +455,9 @@ export default function App() {
               <h3 className="text-2xl font-black mb-1 text-slate-900 leading-tight">{feedback.title}</h3>
               <p className={`text-base font-bold mb-4 ${feedback.type === 'success' ? 'text-emerald-600' : 'text-rose-600'}`}>{feedback.message}</p>
               
-              <div className="bg-slate-50 p-6 rounded-2xl text-xs text-slate-600 mb-6 border border-slate-100 leading-relaxed italic relative">
+              <div className="bg-slate-50 p-6 rounded-2xl text-xs text-slate-600 mb-8 border border-slate-100 leading-relaxed italic relative">
                 <Quote className="absolute -top-3 -left-1 w-6 h-6 text-slate-200 fill-slate-200" />
                 "{feedback.detail}"
-              </div>
-
-              <div className="mb-8 p-3 bg-slate-100/50 rounded-lg border-l-4 border-slate-300">
-                <div className="text-[10px] font-black uppercase text-slate-400 tracking-widest mb-1 flex items-center gap-1">
-                  <BookOpen className="w-3 h-3" /> Academic Source
-                </div>
-                <div className="text-[10px] text-slate-500 leading-tight font-medium">
-                  {feedback.citation}
-                </div>
               </div>
 
               <button 
@@ -519,7 +497,7 @@ export default function App() {
           <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
           <span>Simulation Active</span>
         </div>
-        <span>v5.6 // Smith & Lewis (2011)</span>
+        <span>v5.6</span>
       </footer>
     </div>
   );
