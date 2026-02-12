@@ -467,6 +467,7 @@ export default function App() {
   };
 
   const handleMergeFailure = (o1, o2) => {
+    setMergedOrbs([o1, o2]);
     setFeedback({
       type: 'failure',
       title: 'Defensive Splitting',
@@ -675,7 +676,7 @@ export default function App() {
           <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-6">
             <div className={`max-w-md w-full p-10 rounded-[2.5rem] shadow-2xl bg-slate-900 border-t-[12px] ${feedback.type === 'success' ? 'border-t-emerald-500' : 'border-t-rose-500'}`}>
               
-              {feedback.type === 'success' && mergedOrbs.length > 0 && (
+              {mergedOrbs.length > 0 && (
                 <div className="flex items-center justify-center gap-3 mb-6">
                   {mergedOrbs.map((orb, idx) => (
                     <React.Fragment key={orb.id}>
@@ -690,8 +691,8 @@ export default function App() {
                     </React.Fragment>
                   ))}
                   <span className="text-2xl text-slate-500 font-bold mx-1">=</span>
-                  <div className="w-16 h-16 rounded-full flex items-center justify-center p-2 text-center bg-gradient-to-br from-emerald-500 to-emerald-600 border-2 border-white/20 shadow-lg">
-                    <Zap className="w-6 h-6 text-white" />
+                  <div className={`w-16 h-16 rounded-full flex items-center justify-center p-2 text-center bg-gradient-to-br ${feedback.type === 'success' ? 'from-emerald-500 to-emerald-600' : 'from-rose-500 to-rose-600'} border-2 border-white/20 shadow-lg`}>
+                    {feedback.type === 'success' ? <Zap className="w-6 h-6 text-white" /> : <ShieldAlert className="w-6 h-6 text-white" />}
                   </div>
                 </div>
               )}
