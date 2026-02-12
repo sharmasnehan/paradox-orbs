@@ -304,9 +304,9 @@ export default function App() {
   const handleMergeFailure = (o1, o2) => {
     setFeedback({
       type: 'failure',
-      title: 'Defensive Splitting',
+      title: 'Try Again',
       message: `Collision: ${o1.label} + ${o2.label}`,
-      detail: "Favoring one pole while colliding with a distraction leads to a loss of synthesis."
+      detail: null
     });
     setGameState('feedback');
     setIsDragging(null);
@@ -479,12 +479,14 @@ export default function App() {
                 {feedback.type === 'success' ? <Zap className="w-7 h-7" /> : <ShieldAlert className="w-7 h-7" />}
               </div>
               <h3 className="text-2xl font-black mb-1 text-slate-900 leading-tight">{feedback.title}</h3>
-              <p className={`text-base font-bold mb-4 ${feedback.type === 'success' ? 'text-emerald-600' : 'text-rose-600'}`}>{feedback.message}</p>
+              <p className={`text-base font-bold ${feedback.detail ? 'mb-4' : 'mb-8'} ${feedback.type === 'success' ? 'text-emerald-600' : 'text-rose-600'}`}>{feedback.message}</p>
               
-              <div className="bg-slate-50 p-6 rounded-2xl text-xs text-slate-600 mb-8 border border-slate-100 leading-relaxed italic relative">
-                <Quote className="absolute -top-3 -left-1 w-6 h-6 text-slate-200 fill-slate-200" />
-                "{feedback.detail}"
-              </div>
+              {feedback.detail && (
+                <div className="bg-slate-50 p-6 rounded-2xl text-xs text-slate-600 mb-8 border border-slate-100 leading-relaxed italic relative">
+                  <Quote className="absolute -top-3 -left-1 w-6 h-6 text-slate-200 fill-slate-200" />
+                  "{feedback.detail}"
+                </div>
+              )}
 
               <button 
                 onClick={feedback.type === 'failure' ? () => startLevel(level) : () => startLevel(level + 1)} 
