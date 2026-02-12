@@ -600,6 +600,11 @@ export default function App() {
               <h2 className="text-base md:text-xl font-bold text-slate-800 text-center max-w-2xl px-4 leading-snug mb-1">
                 {SCENARIOS[level].context}
               </h2>
+              {SCENARIOS[level].poles.length > 2 && (
+                <p className="text-xs text-amber-600 font-bold mt-2 bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
+                  ⚠️ Hint: This level has {SCENARIOS[level].poles.length} poles to merge!
+                </p>
+              )}
               
               <div className="mt-4 w-full max-w-sm h-2 bg-slate-100 rounded-full overflow-hidden relative shadow-inner">
                 <div 
