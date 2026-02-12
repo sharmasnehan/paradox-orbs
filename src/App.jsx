@@ -445,6 +445,12 @@ export default function App() {
                   style={{ width: `${(timeLeft / (Math.max(10, 25 - (level * 2)))) * 100}%` }}
                 />
               </div>
+              <button 
+                onClick={() => startLevel(level + 1)}
+                className="mt-4 text-xs text-slate-400 hover:text-slate-600 font-medium transition-colors underline underline-offset-2"
+              >
+                Skip Level →
+              </button>
             </div>
 
             <div ref={containerRef} className="flex-1 w-full relative overflow-hidden bg-[radial-gradient(#e2e8f0_1.5px,transparent_1.5px)] [background-size:32px_32px]">
@@ -516,19 +522,42 @@ export default function App() {
         )}
 
         {gameState === 'gameover' && (
-          <div className="flex-1 flex items-center justify-center p-6 text-center">
-            <div className="max-w-lg w-full bg-white p-12 rounded-[3rem] shadow-2xl border border-slate-100">
+          <div className="flex-1 flex items-center justify-center p-6 text-center overflow-y-auto">
+            <div className="max-w-lg w-full bg-white p-10 md:p-12 rounded-[3rem] shadow-2xl border border-slate-100">
               <div className="w-20 h-20 bg-indigo-50 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-indigo-100">
                 <Award className="w-10 h-10 text-indigo-600" />
               </div>
               <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tighter">TRAINING COMPLETE</h2>
-              <div className="bg-indigo-600 p-10 rounded-[2.5rem] mb-10 shadow-2xl shadow-indigo-200">
+              <div className="bg-indigo-600 p-10 rounded-[2.5rem] mb-8 shadow-2xl shadow-indigo-200">
                 <div className="text-[10px] uppercase text-indigo-200 font-black tracking-widest mb-1">Final Cognition Score</div>
                 <div className="text-7xl font-black text-white tracking-tighter">{score}</div>
               </div>
+
+              <div className="bg-slate-50 rounded-2xl p-6 mb-8 border border-slate-200 border-dashed">
+                <div className="flex items-center justify-center gap-2 mb-4">
+                  <span className="text-lg font-black text-slate-400 uppercase tracking-wide">Leaderboard</span>
+                  <span className="text-[9px] bg-amber-100 text-amber-700 px-2 py-1 rounded-full font-black uppercase">Under Construction</span>
+                </div>
+                <div className="space-y-2 opacity-50">
+                  <div className="flex justify-between items-center bg-white rounded-lg px-4 py-2 border border-slate-100">
+                    <span className="text-sm font-bold text-slate-400">1. — — —</span>
+                    <span className="text-sm font-black text-slate-300">- - - -</span>
+                  </div>
+                  <div className="flex justify-between items-center bg-white rounded-lg px-4 py-2 border border-slate-100">
+                    <span className="text-sm font-bold text-slate-400">2. — — —</span>
+                    <span className="text-sm font-black text-slate-300">- - - -</span>
+                  </div>
+                  <div className="flex justify-between items-center bg-white rounded-lg px-4 py-2 border border-slate-100">
+                    <span className="text-sm font-bold text-slate-400">3. — — —</span>
+                    <span className="text-sm font-black text-slate-300">- - - -</span>
+                  </div>
+                </div>
+                <p className="text-[10px] text-slate-400 mt-3">Coming soon...</p>
+              </div>
+
               <button 
                 onClick={() => startLevel(0)}
-                className="w-full bg-slate-900 text-white py-5 rounded-2xl font-black text-lg shadow-xl hover:bg-black transition-all mb-4"
+                className="w-full bg-slate-900 text-white py-5 rounded-2xl font-black text-lg shadow-xl hover:bg-black transition-all"
               >
                 Restart Training
               </button>
