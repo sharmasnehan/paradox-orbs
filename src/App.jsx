@@ -287,6 +287,7 @@ export default function App() {
   const [passwordInput, setPasswordInput] = useState('');
   const [passwordError, setPasswordError] = useState(false);
   const [completedLevels, setCompletedLevels] = useState([]);
+  const [mergedOrbs, setMergedOrbs] = useState([]);
   
   const containerRef = useRef(null);
   const animationFrameRef = useRef(null);
@@ -451,6 +452,8 @@ export default function App() {
 
   const handleMergeSuccess = () => {
     const scenario = SCENARIOS[level];
+    const coreOrbs = activeOrbs.filter(o => o.type === 'core');
+    setMergedOrbs(coreOrbs);
     setScore(prev => prev + 300 + (timeLeft * 20));
     setCompletedLevels(prev => prev.includes(level) ? prev : [...prev, level]);
     setFeedback({
@@ -671,6 +674,28 @@ export default function App() {
         {gameState === 'feedback' && feedback && (
           <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-6">
             <div className={`max-w-md w-full p-10 rounded-[2.5rem] shadow-2xl bg-slate-900 border-t-[12px] ${feedback.type === 'success' ? 'border-t-emerald-500' : 'border-t-rose-500'}`}>
+              
+              {feedback.type === 'success' && mergedOrbs.length > 0 && (
+                <div className="flex items-center justify-center gap-3 mb-6">
+                  {mergedOrbs.map((orb, idx) => (
+                    <React.Fragment key={orb.id}>
+                      <div className={`w-16 h-16 rounded-full flex items-center justify-center p-2 text-center bg-gradient-to-br ${orb.color} border-2 border-white/20 shadow-lg`}>
+                        <span className="font-black text-[8px] text-white leading-tight uppercase tracking-tight">
+                          {orb.label}
+                        </span>
+                      </div>
+                      {idx < mergedOrbs.length - 1 && (
+                        <span className="text-2xl text-slate-500 font-bold">+</span>
+                      )}
+                    </React.Fragment>
+                  ))}
+                  <span className="text-2xl text-slate-500 font-bold mx-1">=</span>
+                  <div className="w-16 h-16 rounded-full flex items-center justify-center p-2 text-center bg-gradient-to-br from-emerald-500 to-emerald-600 border-2 border-white/20 shadow-lg">
+                    <Zap className="w-6 h-6 text-white" />
+                  </div>
+                </div>
+              )}
+
               <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-md ${feedback.type === 'success' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'}`}>
                 {feedback.type === 'success' ? <Zap className="w-7 h-7" /> : <ShieldAlert className="w-7 h-7" />}
               </div>
