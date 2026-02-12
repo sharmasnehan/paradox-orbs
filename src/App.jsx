@@ -577,8 +577,11 @@ export default function App() {
                 </ul>
               </div>
 
-              <p className="text-slate-500 text-center text-sm mb-6 leading-relaxed">
-                Move beyond "Either/Or" thinking. Embrace "Both/And" leadership.
+              <p className="text-slate-600 text-center text-sm mb-4 leading-relaxed">
+                Holding contradictory ideas and acting upon them helps leaders navigate ambiguous time-sensitive scenarios. Strengthen that muscle with this simulation.
+              </p>
+              <p className="text-amber-600 text-center text-xs mb-6 font-semibold">
+                ⚠️ Warning: this may feel uncomfortable!
               </p>
 
               <button 
