@@ -304,7 +304,7 @@ export default function App() {
   const handleMergeFailure = (o1, o2) => {
     setFeedback({
       type: 'failure',
-      title: 'Try Again',
+      title: 'Defensive Splitting',
       message: `Collision: ${o1.label} + ${o2.label}`,
       detail: null
     });
