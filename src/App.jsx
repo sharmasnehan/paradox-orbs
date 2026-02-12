@@ -16,7 +16,7 @@ const SCENARIOS = [
     ],
     synthesis: { 
       label: "Sustainable Velocity", 
-      desc: "Managing technical debt as a strategic lever. This requires purposeful 'splitting' to protect R&D from maintenance creep."
+      desc: "Delivering fast without breaking things. Speed and reliability aren't opposites—they're partners when you build quality into the process."
     },
     difficulty: 1,
     speed: 0.4
@@ -82,6 +82,166 @@ const SCENARIOS = [
   },
   {
     id: 5,
+    category: "Operations & Execution",
+    context: "Customer demand is surging but quality complaints are rising. How do you respond?",
+    poles: [
+      { label: "Speed to Market", type: "core" },
+      { label: "Quality Control", type: "core" }
+    ],
+    decoys: [
+      { label: "Outsource Everything", type: "decoy" },
+      { label: "Freeze Production", type: "decoy" },
+      { label: "Blame the Team", type: "decoy" }
+    ],
+    synthesis: { 
+      label: "Scalable Excellence", 
+      desc: "Building quality into the process rather than inspecting it at the end. Speed and quality reinforce each other."
+    },
+    difficulty: 2,
+    speed: 0.7
+  },
+  {
+    id: 6,
+    category: "Innovation & Risk",
+    context: "The board wants predictable returns but the market demands disruption. What's your stance?",
+    poles: [
+      { label: "Exploit Current", type: "core" },
+      { label: "Explore New", type: "core" }
+    ],
+    decoys: [
+      { label: "All-In Pivot", type: "decoy" },
+      { label: "Status Quo", type: "decoy" },
+      { label: "Spin-Off Everything", type: "decoy" }
+    ],
+    synthesis: { 
+      label: "Ambidextrous Strategy", 
+      desc: "Running today's business while inventing tomorrow's. Both exploitation and exploration are essential for long-term survival."
+    },
+    difficulty: 2,
+    speed: 0.8
+  },
+  {
+    id: 7,
+    category: "Collaboration & Competition",
+    context: "Your biggest competitor proposes a strategic partnership. How do you engage?",
+    poles: [
+      { label: "Cooperation", type: "core" },
+      { label: "Competition", type: "core" }
+    ],
+    decoys: [
+      { label: "Full Merger", type: "decoy" },
+      { label: "Total Rejection", type: "decoy" },
+      { label: "Passive Observation", type: "decoy" }
+    ],
+    synthesis: { 
+      label: "Co-opetition", 
+      desc: "Competing and collaborating simultaneously for mutual benefit. Rivals can be partners in the right context."
+    },
+    difficulty: 2,
+    speed: 0.8
+  },
+  {
+    id: 8,
+    category: "Control & Autonomy",
+    context: "Remote teams want freedom; executives want visibility. How do you structure work?",
+    poles: [
+      { label: "Standardization", type: "core" },
+      { label: "Empowerment", type: "core" }
+    ],
+    decoys: [
+      { label: "Micromanagement", type: "decoy" },
+      { label: "Total Chaos", type: "decoy" },
+      { label: "Surveillance Tools", type: "decoy" }
+    ],
+    synthesis: { 
+      label: "Guided Autonomy", 
+      desc: "Clear boundaries with freedom to operate within them. Structure enables creativity rather than constraining it."
+    },
+    difficulty: 2,
+    speed: 0.7
+  },
+  {
+    id: 9,
+    category: "Short-Term & Long-Term",
+    context: "Quarterly targets are at risk but the 5-year strategy requires investment now. What do you prioritize?",
+    poles: [
+      { label: "Immediate Results", type: "core" },
+      { label: "Future Building", type: "core" }
+    ],
+    decoys: [
+      { label: "Cut All R&D", type: "decoy" },
+      { label: "Ignore Shareholders", type: "decoy" },
+      { label: "Delay Everything", type: "decoy" }
+    ],
+    synthesis: { 
+      label: "Temporal Ambidexterity", 
+      desc: "Delivering today while planting seeds for tomorrow. Short-term wins fund long-term bets."
+    },
+    difficulty: 2,
+    speed: 0.8
+  },
+  {
+    id: 10,
+    category: "Individual & Collective",
+    context: "Star performers want recognition; the team culture values equality. How do you reward?",
+    poles: [
+      { label: "Individual Achievement", type: "core" },
+      { label: "Team Cohesion", type: "core" }
+    ],
+    decoys: [
+      { label: "Winner Takes All", type: "decoy" },
+      { label: "Flat Bonuses", type: "decoy" },
+      { label: "Eliminate Reviews", type: "decoy" }
+    ],
+    synthesis: { 
+      label: "Collaborative Meritocracy", 
+      desc: "Celebrating individual excellence that elevates the whole. Stars shine brightest in strong constellations."
+    },
+    difficulty: 2,
+    speed: 0.7
+  },
+  {
+    id: 11,
+    category: "Stability & Change",
+    context: "The organization is exhausted from transformation but the market keeps shifting. What's next?",
+    poles: [
+      { label: "Continuity", type: "core" },
+      { label: "Adaptation", type: "core" }
+    ],
+    decoys: [
+      { label: "Constant Restructuring", type: "decoy" },
+      { label: "Total Freeze", type: "decoy" },
+      { label: "Mass Layoffs", type: "decoy" }
+    ],
+    synthesis: { 
+      label: "Dynamic Stability", 
+      desc: "Creating a stable foundation that enables continuous evolution. Change is sustainable when anchored in constants."
+    },
+    difficulty: 2,
+    speed: 0.8
+  },
+  {
+    id: 12,
+    category: "Transparency & Discretion",
+    context: "Employees demand openness but sensitive negotiations require confidentiality. How much do you share?",
+    poles: [
+      { label: "Radical Transparency", type: "core" },
+      { label: "Strategic Privacy", type: "core" }
+    ],
+    decoys: [
+      { label: "Tell Everyone Everything", type: "decoy" },
+      { label: "Tell No One Anything", type: "decoy" },
+      { label: "Leak Selectively", type: "decoy" }
+    ],
+    synthesis: { 
+      label: "Calibrated Candor", 
+      desc: "Being as open as possible while protecting what must be protected. Trust is built through intentional transparency."
+    },
+    difficulty: 2,
+    speed: 0.8
+  },
+  {
+    id: 13,
     category: "ADVANCED: Multi-Paradox Mode",
     context: "A global expansion meets local regulatory resistance and ethical concerns. Balance all three.",
     poles: [
@@ -126,6 +286,7 @@ export default function App() {
   const [isDragging, setIsDragging] = useState(null);
   const [passwordInput, setPasswordInput] = useState('');
   const [passwordError, setPasswordError] = useState(false);
+  const [completedLevels, setCompletedLevels] = useState([]);
   
   const containerRef = useRef(null);
   const animationFrameRef = useRef(null);
@@ -291,6 +452,7 @@ export default function App() {
   const handleMergeSuccess = () => {
     const scenario = SCENARIOS[level];
     setScore(prev => prev + 300 + (timeLeft * 20));
+    setCompletedLevels(prev => prev.includes(level) ? prev : [...prev, level]);
     setFeedback({
       type: 'success',
       title: scenario.synthesis.label,
@@ -445,9 +607,29 @@ export default function App() {
                   style={{ width: `${(timeLeft / (Math.max(10, 25 - (level * 2)))) * 100}%` }}
                 />
               </div>
+              
+              <div className="mt-4 flex items-center gap-1.5">
+                {SCENARIOS.map((_, idx) => (
+                  <div
+                    key={idx}
+                    className={`w-2.5 h-2.5 rounded-full transition-all ${
+                      idx === level 
+                        ? 'bg-indigo-600 ring-4 ring-indigo-100' 
+                        : completedLevels.includes(idx) 
+                          ? 'bg-emerald-500' 
+                          : 'bg-slate-200'
+                    }`}
+                    title={`Level ${idx + 1}: ${SCENARIOS[idx].category}`}
+                  />
+                ))}
+                <span className="ml-2 text-[10px] text-slate-400 font-bold">
+                  {completedLevels.length}/{SCENARIOS.length} complete
+                </span>
+              </div>
+
               <button 
                 onClick={() => startLevel(level + 1)}
-                className="mt-4 text-xs text-slate-400 hover:text-slate-600 font-medium transition-colors underline underline-offset-2"
+                className="mt-3 text-xs text-slate-400 hover:text-slate-600 font-medium transition-colors underline underline-offset-2"
               >
                 Skip Level →
               </button>
