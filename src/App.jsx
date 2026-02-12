@@ -488,12 +488,29 @@ export default function App() {
                 </div>
               )}
 
-              <button 
-                onClick={feedback.type === 'failure' ? () => startLevel(level) : () => startLevel(level + 1)} 
-                className={`w-full py-4 rounded-xl font-black flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95 ${feedback.type === 'success' ? 'bg-emerald-500 hover:bg-emerald-600 text-white' : 'bg-slate-900 hover:bg-black text-white'}`}
-              >
-                {feedback.type === 'failure' ? "Try Again" : "Next Level"}
-              </button>
+              {feedback.type === 'success' ? (
+                <>
+                  <button 
+                    onClick={() => startLevel(level + 1)} 
+                    className="w-full py-4 rounded-xl font-black flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95 bg-emerald-500 hover:bg-emerald-600 text-white mb-3"
+                  >
+                    Next Level
+                  </button>
+                  <button 
+                    onClick={() => startLevel(level)} 
+                    className="w-full py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all active:scale-95 bg-slate-100 hover:bg-slate-200 text-slate-600"
+                  >
+                    Replay Level
+                  </button>
+                </>
+              ) : (
+                <button 
+                  onClick={() => startLevel(level)} 
+                  className="w-full py-4 rounded-xl font-black flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95 bg-slate-900 hover:bg-black text-white"
+                >
+                  Try Again
+                </button>
+              )}
             </div>
           </div>
         )}
