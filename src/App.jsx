@@ -5,7 +5,7 @@ const SCENARIOS = [
   {
     id: 1,
     category: "Product & Tech",
-    context: "Environmental Trigger: SCARCITY. A major release is due. How do you balance the technical integrity with the market deadline?",
+    context: "A major release is due. How do you balance the technical integrity with the market deadline?",
     poles: [
       { label: "Innovation Speed", type: "core" },
       { label: "System Reliability", type: "core" }
@@ -24,7 +24,7 @@ const SCENARIOS = [
   {
     id: 2,
     category: "People & Culture",
-    context: "Environmental Trigger: CHANGE. The team is under-performing but morale is fragile. How do you handle the review?",
+    context: "The team is under-performing but morale is fragile. How do you handle the review?",
     poles: [
       { label: "High Standards", type: "core" },
       { label: "Psychological Safety", type: "core" }
@@ -43,7 +43,7 @@ const SCENARIOS = [
   {
     id: 3,
     category: "Strategy & Growth",
-    context: "Environmental Trigger: PLURALITY. Investors want growth; the Finance team wants efficiency. What is the path?",
+    context: "Investors want growth; the Finance team wants efficiency. What is the path?",
     poles: [
       { label: "Hyper-Growth", type: "core" },
       { label: "Profitability", type: "core" }
@@ -63,7 +63,7 @@ const SCENARIOS = [
   {
     id: 4,
     category: "Leadership & Personal",
-    context: "Environmental Trigger: COMPLEXITY. You are the face of a pivot. How do you project yourself to the team?",
+    context: "You are the face of a pivot. How do you project yourself to the team?",
     poles: [
       { label: "Bold Confidence", type: "core" },
       { label: "Radical Humility", type: "core" }
@@ -83,7 +83,7 @@ const SCENARIOS = [
   {
     id: 5,
     category: "ADVANCED: Multi-Paradox Mode",
-    context: "Environmental Trigger: POLITICAL CRISIS. A global expansion meets local regulatory resistance and ethical concerns. Balance all three.",
+    context: "A global expansion meets local regulatory resistance and ethical concerns. Balance all three.",
     poles: [
       { label: "Centralized Speed", type: "core" },
       { label: "Local Flexibility", type: "core" },
