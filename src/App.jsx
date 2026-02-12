@@ -476,47 +476,47 @@ export default function App() {
 
   return (
     <div 
-      className="h-screen w-full bg-slate-50 text-slate-900 font-sans flex flex-col select-none overflow-hidden"
+      className="h-screen w-full bg-slate-950 text-slate-100 font-sans flex flex-col select-none overflow-hidden"
       onMouseMove={handleDragMove}
       onMouseUp={() => setIsDragging(null)}
       onTouchMove={handleDragMove}
       onTouchEnd={() => setIsDragging(null)}
     >
-      <header className="bg-white border-b border-slate-200 px-6 py-4 flex justify-between items-center shrink-0 shadow-sm z-30">
+      <header className="bg-slate-900 border-b border-slate-800 px-6 py-4 flex justify-between items-center shrink-0 shadow-lg z-30">
         <button 
           onClick={() => { setGameState('menu'); setIsDragging(null); }}
           className="flex items-center gap-3 hover:opacity-80 transition-opacity"
         >
-          <div className="bg-indigo-600 p-2 rounded-lg shadow-md shadow-indigo-100">
-            <Target className="w-5 h-5 text-white" />
+          <div className="bg-cyan-500 p-2 rounded-lg shadow-md shadow-cyan-500/20">
+            <Target className="w-5 h-5 text-slate-900" />
           </div>
           <div className="text-left">
-            <h1 className="text-sm font-black tracking-tighter uppercase text-slate-900 leading-none">Paradox Orbs v5.6</h1>
-            <p className="text-[9px] text-slate-500 font-bold tracking-widest mt-1">EDUCATIONAL SIMULATION</p>
+            <h1 className="text-sm font-black tracking-tighter uppercase text-white leading-none">Paradox Orbs v5.6</h1>
+            <p className="text-[9px] text-slate-400 font-bold tracking-widest mt-1">EDUCATIONAL SIMULATION</p>
           </div>
         </button>
         <div className="flex gap-8 items-center">
           <div className="text-right">
-            <div className="text-[9px] text-slate-400 font-black uppercase tracking-widest">Complexity</div>
-            <div className="text-xl font-black leading-none">{level + 1}</div>
+            <div className="text-[9px] text-slate-500 font-black uppercase tracking-widest">Complexity</div>
+            <div className="text-xl font-black leading-none text-white">{level + 1}</div>
           </div>
-          <div className="text-right border-l border-slate-200 pl-8">
-            <div className="text-[9px] text-slate-400 font-black uppercase tracking-widest">Cognition</div>
-            <div className="text-xl font-black leading-none text-indigo-600 tracking-tighter">{score}</div>
+          <div className="text-right border-l border-slate-700 pl-8">
+            <div className="text-[9px] text-slate-500 font-black uppercase tracking-widest">Cognition</div>
+            <div className="text-xl font-black leading-none text-cyan-400 tracking-tighter">{score}</div>
           </div>
         </div>
       </header>
 
       <main className="flex-1 relative flex flex-col overflow-hidden">
         {gameState === 'password' && (
-          <div className="flex-1 flex items-center justify-center p-6 bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900">
+          <div className="flex-1 flex items-center justify-center p-6 bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950">
             <div className="max-w-sm w-full">
               <div className="text-center mb-8">
-                <div className="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-3xl flex items-center justify-center mx-auto mb-6 border border-white/20">
-                  <Target className="w-10 h-10 text-white" />
+                <div className="w-20 h-20 bg-cyan-500/10 backdrop-blur-sm rounded-3xl flex items-center justify-center mx-auto mb-6 border border-cyan-500/30">
+                  <Target className="w-10 h-10 text-cyan-400" />
                 </div>
                 <h1 className="text-2xl font-black text-white tracking-tight mb-2">PARADOX ORBS</h1>
-                <p className="text-slate-400 text-xs uppercase tracking-widest">Educational Simulation</p>
+                <p className="text-cyan-400/70 text-xs uppercase tracking-widest">Educational Simulation</p>
               </div>
               
               <form onSubmit={handlePasswordSubmit} className="space-y-4">
@@ -526,7 +526,7 @@ export default function App() {
                     value={passwordInput}
                     onChange={(e) => setPasswordInput(e.target.value)}
                     placeholder="Enter access code"
-                    className={`w-full px-6 py-4 bg-white/10 backdrop-blur-sm border-2 rounded-xl text-white placeholder-slate-400 text-center font-mono tracking-widest focus:outline-none focus:border-indigo-400 transition-all ${passwordError ? 'border-rose-500 animate-shake' : 'border-white/20'}`}
+                    className={`w-full px-6 py-4 bg-slate-800/50 backdrop-blur-sm border-2 rounded-xl text-white placeholder-slate-500 text-center font-mono tracking-widest focus:outline-none focus:border-cyan-400 transition-all ${passwordError ? 'border-rose-500 animate-shake' : 'border-slate-700'}`}
                     autoFocus
                   />
                   {passwordError && (
@@ -535,13 +535,13 @@ export default function App() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-white text-slate-900 py-4 rounded-xl font-black transition-all hover:bg-indigo-100 active:scale-95 shadow-lg"
+                  className="w-full bg-cyan-500 text-slate-900 py-4 rounded-xl font-black transition-all hover:bg-cyan-400 active:scale-95 shadow-lg shadow-cyan-500/20"
                 >
                   Authenticate
                 </button>
               </form>
               
-              <p className="text-slate-500 text-[10px] text-center mt-8 uppercase tracking-widest">
+              <p className="text-slate-600 text-[10px] text-center mt-8 uppercase tracking-widest">
                 Authorized personnel only
               </p>
             </div>
@@ -550,43 +550,43 @@ export default function App() {
 
         {gameState === 'menu' && (
           <div className="flex-1 flex items-center justify-center p-6 overflow-y-auto">
-            <div className="max-w-lg w-full bg-white rounded-3xl shadow-2xl border border-slate-100 p-10 md:p-12">
+            <div className="max-w-lg w-full bg-slate-900 rounded-3xl shadow-2xl border border-slate-800 p-10 md:p-12">
               <div className="text-center mb-8">
-                <div className="w-20 h-20 bg-indigo-50 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-indigo-100">
-                  <Layers className="w-10 h-10 text-indigo-600" />
+                <div className="w-20 h-20 bg-cyan-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-cyan-500/30">
+                  <Layers className="w-10 h-10 text-cyan-400" />
                 </div>
-                <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-2 tracking-tight">Paradox Orbs</h2>
-                <p className="text-slate-400 text-sm uppercase tracking-widest font-bold">Educational Simulation</p>
+                <h2 className="text-3xl md:text-4xl font-black text-white mb-2 tracking-tight">Paradox Orbs</h2>
+                <p className="text-cyan-400/70 text-sm uppercase tracking-widest font-bold">Educational Simulation</p>
               </div>
 
-              <div className="bg-slate-50 rounded-2xl p-6 mb-8 border border-slate-100">
-                <h3 className="text-lg font-black text-slate-800 mb-4 uppercase tracking-wide">How to Play</h3>
+              <div className="bg-slate-800/50 rounded-2xl p-6 mb-8 border border-slate-700">
+                <h3 className="text-lg font-black text-white mb-4 uppercase tracking-wide">How to Play</h3>
                 <ul className="space-y-4 text-left">
                   <li className="flex gap-3">
-                    <span className="w-7 h-7 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-black shrink-0">1</span>
-                    <span className="text-slate-600 text-base leading-snug"><strong className="text-slate-800">Find the core tensions</strong> — identify the two (or three) orbs that represent competing but valid demands.</span>
+                    <span className="w-7 h-7 bg-cyan-500 text-slate-900 rounded-lg flex items-center justify-center text-sm font-black shrink-0">1</span>
+                    <span className="text-slate-300 text-base leading-snug"><strong className="text-white">Find the core tensions</strong> — identify the two (or three) orbs that represent competing but valid demands.</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="w-7 h-7 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-black shrink-0">2</span>
-                    <span className="text-slate-600 text-base leading-snug"><strong className="text-slate-800">Drag them together</strong> — merge the core poles to achieve synthesis. Avoid the decoy options!</span>
+                    <span className="w-7 h-7 bg-cyan-500 text-slate-900 rounded-lg flex items-center justify-center text-sm font-black shrink-0">2</span>
+                    <span className="text-slate-300 text-base leading-snug"><strong className="text-white">Drag them together</strong> — merge the core poles to achieve synthesis. Avoid the decoy options!</span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="w-7 h-7 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-black shrink-0">3</span>
-                    <span className="text-slate-600 text-base leading-snug"><strong className="text-slate-800">Beat the clock</strong> — complete each level before time runs out to maximize your score.</span>
+                    <span className="w-7 h-7 bg-cyan-500 text-slate-900 rounded-lg flex items-center justify-center text-sm font-black shrink-0">3</span>
+                    <span className="text-slate-300 text-base leading-snug"><strong className="text-white">Beat the clock</strong> — complete each level before time runs out to maximize your score.</span>
                   </li>
                 </ul>
               </div>
 
-              <p className="text-slate-600 text-center text-sm mb-4 leading-relaxed">
+              <p className="text-slate-400 text-center text-sm mb-4 leading-relaxed">
                 Holding contradictory ideas and acting upon them helps leaders navigate ambiguous time-sensitive scenarios. Strengthen that muscle with this simulation.
               </p>
-              <p className="text-amber-600 text-center text-xs mb-6 font-semibold">
+              <p className="text-amber-400 text-center text-xs mb-6 font-semibold">
                 ⚠️ Warning: this may feel uncomfortable!
               </p>
 
               <button 
                 onClick={() => startLevel(0)}
-                className="w-full bg-slate-900 hover:bg-black text-white py-4 rounded-xl font-black text-lg transition-all shadow-lg active:scale-95"
+                className="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-900 py-4 rounded-xl font-black text-lg transition-all shadow-lg shadow-cyan-500/20 active:scale-95"
               >
                 Launch Simulation
               </button>
@@ -596,22 +596,22 @@ export default function App() {
 
         {gameState === 'playing' && (
           <div className="h-full w-full flex flex-col relative">
-            <div className="w-full bg-white/95 backdrop-blur-md border-b border-slate-100 p-6 flex flex-col items-center z-20">
-              <div className="px-4 py-1.5 bg-indigo-50 text-indigo-700 rounded-full text-[10px] font-black uppercase tracking-widest mb-3 border border-indigo-100">
+            <div className="w-full bg-slate-900/95 backdrop-blur-md border-b border-slate-800 p-6 flex flex-col items-center z-20">
+              <div className="px-4 py-1.5 bg-cyan-500/10 text-cyan-400 rounded-full text-[10px] font-black uppercase tracking-widest mb-3 border border-cyan-500/30">
                 {SCENARIOS[level].category}
               </div>
-              <h2 className="text-base md:text-xl font-bold text-slate-800 text-center max-w-2xl px-4 leading-snug mb-1">
+              <h2 className="text-base md:text-xl font-bold text-white text-center max-w-2xl px-4 leading-snug mb-1">
                 {SCENARIOS[level].context}
               </h2>
               {SCENARIOS[level].poles.length > 2 && (
-                <p className="text-xs text-amber-600 font-bold mt-2 bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
+                <p className="text-xs text-amber-400 font-bold mt-2 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">
                   ⚠️ Hint: This level has {SCENARIOS[level].poles.length} poles to merge!
                 </p>
               )}
               
-              <div className="mt-4 w-full max-w-sm h-2 bg-slate-100 rounded-full overflow-hidden relative shadow-inner">
+              <div className="mt-4 w-full max-w-sm h-2 bg-slate-800 rounded-full overflow-hidden relative shadow-inner">
                 <div 
-                  className={`h-full transition-all duration-1000 linear ${timeLeft < 5 ? 'bg-rose-500' : 'bg-indigo-600'}`}
+                  className={`h-full transition-all duration-1000 linear ${timeLeft < 5 ? 'bg-rose-500' : 'bg-cyan-500'}`}
                   style={{ width: `${(timeLeft / (Math.max(10, 25 - (level * 2)))) * 100}%` }}
                 />
               </div>
@@ -622,35 +622,35 @@ export default function App() {
                     key={idx}
                     className={`w-2.5 h-2.5 rounded-full transition-all ${
                       idx === level 
-                        ? 'bg-indigo-600 ring-4 ring-indigo-100' 
+                        ? 'bg-cyan-500 ring-4 ring-cyan-500/20' 
                         : completedLevels.includes(idx) 
                           ? 'bg-emerald-500' 
-                          : 'bg-slate-200'
+                          : 'bg-slate-700'
                     }`}
                     title={`Level ${idx + 1}: ${SCENARIOS[idx].category}`}
                   />
                 ))}
-                <span className="ml-2 text-[10px] text-slate-400 font-bold">
+                <span className="ml-2 text-[10px] text-slate-500 font-bold">
                   {completedLevels.length}/{SCENARIOS.length} complete
                 </span>
               </div>
 
               <button 
                 onClick={() => startLevel(level + 1)}
-                className="mt-3 text-xs text-slate-400 hover:text-slate-600 font-medium transition-colors underline underline-offset-2"
+                className="mt-3 text-xs text-slate-500 hover:text-cyan-400 font-medium transition-colors underline underline-offset-2"
               >
                 Skip Level →
               </button>
             </div>
 
-            <div ref={containerRef} className="flex-1 w-full relative overflow-hidden bg-[radial-gradient(#e2e8f0_1.5px,transparent_1.5px)] [background-size:32px_32px]">
+            <div ref={containerRef} className="flex-1 w-full relative overflow-hidden bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:32px_32px]">
               {activeOrbs.map((orb) => (
                 <div
                   key={orb.id}
                   onMouseDown={(e) => handleDragStart(e, orb.id)}
                   onTouchStart={(e) => handleDragStart(e, orb.id)}
                   className={`absolute w-24 h-24 md:w-36 md:h-36 rounded-full flex items-center justify-center p-5 text-center shadow-xl transition-transform cursor-grab active:cursor-grabbing
-                    ${isDragging === orb.id ? 'scale-110 z-40 ring-8 ring-indigo-500/10' : 'z-10 hover:brightness-105'}
+                    ${isDragging === orb.id ? 'scale-110 z-40 ring-8 ring-cyan-500/20' : 'z-10 hover:brightness-110'}
                     bg-gradient-to-br ${orb.color} border-2 border-white/20`}
                   style={{
                     left: `${orb.x}%`,
@@ -669,17 +669,17 @@ export default function App() {
         )}
 
         {gameState === 'feedback' && feedback && (
-          <div className="absolute inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-6">
-            <div className={`max-w-md w-full p-10 rounded-[2.5rem] shadow-2xl bg-white border-t-[12px] ${feedback.type === 'success' ? 'border-t-emerald-500' : 'border-t-rose-500'}`}>
-              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-md ${feedback.type === 'success' ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600'}`}>
+          <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-6">
+            <div className={`max-w-md w-full p-10 rounded-[2.5rem] shadow-2xl bg-slate-900 border-t-[12px] ${feedback.type === 'success' ? 'border-t-emerald-500' : 'border-t-rose-500'}`}>
+              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-md ${feedback.type === 'success' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'}`}>
                 {feedback.type === 'success' ? <Zap className="w-7 h-7" /> : <ShieldAlert className="w-7 h-7" />}
               </div>
-              <h3 className="text-2xl font-black mb-1 text-slate-900 leading-tight">{feedback.title}</h3>
-              <p className={`text-base font-bold ${feedback.detail ? 'mb-4' : 'mb-8'} ${feedback.type === 'success' ? 'text-emerald-600' : 'text-rose-600'}`}>{feedback.message}</p>
+              <h3 className="text-2xl font-black mb-1 text-white leading-tight">{feedback.title}</h3>
+              <p className={`text-base font-bold ${feedback.detail ? 'mb-4' : 'mb-8'} ${feedback.type === 'success' ? 'text-emerald-400' : 'text-rose-400'}`}>{feedback.message}</p>
               
               {feedback.detail && (
-                <div className="bg-slate-50 p-6 rounded-2xl text-xs text-slate-600 mb-8 border border-slate-100 leading-relaxed italic relative">
-                  <Quote className="absolute -top-3 -left-1 w-6 h-6 text-slate-200 fill-slate-200" />
+                <div className="bg-slate-800 p-6 rounded-2xl text-xs text-slate-300 mb-8 border border-slate-700 leading-relaxed italic relative">
+                  <Quote className="absolute -top-3 -left-1 w-6 h-6 text-slate-700 fill-slate-700" />
                   "{feedback.detail}"
                 </div>
               )}
@@ -688,13 +688,13 @@ export default function App() {
                 <>
                   <button 
                     onClick={() => startLevel(level + 1)} 
-                    className="w-full py-4 rounded-xl font-black flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95 bg-emerald-500 hover:bg-emerald-600 text-white mb-3"
+                    className="w-full py-4 rounded-xl font-black flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95 bg-emerald-500 hover:bg-emerald-400 text-slate-900 mb-3"
                   >
                     Next Level
                   </button>
                   <button 
                     onClick={() => startLevel(level)} 
-                    className="w-full py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all active:scale-95 bg-slate-100 hover:bg-slate-200 text-slate-600"
+                    className="w-full py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all active:scale-95 bg-slate-800 hover:bg-slate-700 text-slate-300"
                   >
                     Replay Level
                   </button>
@@ -702,7 +702,7 @@ export default function App() {
               ) : (
                 <button 
                   onClick={() => startLevel(level)} 
-                  className="w-full py-4 rounded-xl font-black flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95 bg-slate-900 hover:bg-black text-white"
+                  className="w-full py-4 rounded-xl font-black flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95 bg-cyan-500 hover:bg-cyan-400 text-slate-900"
                 >
                   Try Again
                 </button>
@@ -713,41 +713,41 @@ export default function App() {
 
         {gameState === 'gameover' && (
           <div className="flex-1 flex items-center justify-center p-6 text-center overflow-y-auto">
-            <div className="max-w-lg w-full bg-white p-10 md:p-12 rounded-[3rem] shadow-2xl border border-slate-100">
-              <div className="w-20 h-20 bg-indigo-50 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-indigo-100">
-                <Award className="w-10 h-10 text-indigo-600" />
+            <div className="max-w-lg w-full bg-slate-900 p-10 md:p-12 rounded-[3rem] shadow-2xl border border-slate-800">
+              <div className="w-20 h-20 bg-cyan-500/10 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-cyan-500/30">
+                <Award className="w-10 h-10 text-cyan-400" />
               </div>
-              <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tighter">TRAINING COMPLETE</h2>
-              <div className="bg-indigo-600 p-10 rounded-[2.5rem] mb-8 shadow-2xl shadow-indigo-200">
-                <div className="text-[10px] uppercase text-indigo-200 font-black tracking-widest mb-1">Final Cognition Score</div>
+              <h2 className="text-4xl font-black text-white mb-4 tracking-tighter">TRAINING COMPLETE</h2>
+              <div className="bg-gradient-to-br from-cyan-500 to-cyan-600 p-10 rounded-[2.5rem] mb-8 shadow-2xl shadow-cyan-500/20">
+                <div className="text-[10px] uppercase text-cyan-100 font-black tracking-widest mb-1">Final Cognition Score</div>
                 <div className="text-7xl font-black text-white tracking-tighter">{score}</div>
               </div>
 
-              <div className="bg-slate-50 rounded-2xl p-6 mb-8 border border-slate-200 border-dashed">
+              <div className="bg-slate-800/50 rounded-2xl p-6 mb-8 border border-slate-700 border-dashed">
                 <div className="flex items-center justify-center gap-2 mb-4">
-                  <span className="text-lg font-black text-slate-400 uppercase tracking-wide">Leaderboard</span>
-                  <span className="text-[9px] bg-amber-100 text-amber-700 px-2 py-1 rounded-full font-black uppercase">Under Construction</span>
+                  <span className="text-lg font-black text-slate-500 uppercase tracking-wide">Leaderboard</span>
+                  <span className="text-[9px] bg-amber-500/20 text-amber-400 px-2 py-1 rounded-full font-black uppercase">Under Construction</span>
                 </div>
                 <div className="space-y-2 opacity-50">
-                  <div className="flex justify-between items-center bg-white rounded-lg px-4 py-2 border border-slate-100">
-                    <span className="text-sm font-bold text-slate-400">1. — — —</span>
-                    <span className="text-sm font-black text-slate-300">- - - -</span>
+                  <div className="flex justify-between items-center bg-slate-800 rounded-lg px-4 py-2 border border-slate-700">
+                    <span className="text-sm font-bold text-slate-500">1. — — —</span>
+                    <span className="text-sm font-black text-slate-600">- - - -</span>
                   </div>
-                  <div className="flex justify-between items-center bg-white rounded-lg px-4 py-2 border border-slate-100">
-                    <span className="text-sm font-bold text-slate-400">2. — — —</span>
-                    <span className="text-sm font-black text-slate-300">- - - -</span>
+                  <div className="flex justify-between items-center bg-slate-800 rounded-lg px-4 py-2 border border-slate-700">
+                    <span className="text-sm font-bold text-slate-500">2. — — —</span>
+                    <span className="text-sm font-black text-slate-600">- - - -</span>
                   </div>
-                  <div className="flex justify-between items-center bg-white rounded-lg px-4 py-2 border border-slate-100">
-                    <span className="text-sm font-bold text-slate-400">3. — — —</span>
-                    <span className="text-sm font-black text-slate-300">- - - -</span>
+                  <div className="flex justify-between items-center bg-slate-800 rounded-lg px-4 py-2 border border-slate-700">
+                    <span className="text-sm font-bold text-slate-500">3. — — —</span>
+                    <span className="text-sm font-black text-slate-600">- - - -</span>
                   </div>
                 </div>
-                <p className="text-[10px] text-slate-400 mt-3">Coming soon...</p>
+                <p className="text-[10px] text-slate-600 mt-3">Coming soon...</p>
               </div>
 
               <button 
                 onClick={() => startLevel(0)}
-                className="w-full bg-slate-900 text-white py-5 rounded-2xl font-black text-lg shadow-xl hover:bg-black transition-all"
+                className="w-full bg-cyan-500 text-slate-900 py-5 rounded-2xl font-black text-lg shadow-xl shadow-cyan-500/20 hover:bg-cyan-400 transition-all"
               >
                 Restart Training
               </button>
@@ -756,9 +756,9 @@ export default function App() {
         )}
       </main>
 
-      <footer className="bg-white border-t border-slate-200 py-4 px-6 flex justify-between items-center shrink-0 text-[9px] font-black text-slate-400 uppercase tracking-widest">
+      <footer className="bg-slate-900 border-t border-slate-800 py-4 px-6 flex justify-between items-center shrink-0 text-[9px] font-black text-slate-500 uppercase tracking-widest">
         <div className="flex items-center gap-2.5">
-          <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
+          <div className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse" />
           <span>Simulation Active</span>
         </div>
         <span>v5.6</span>
