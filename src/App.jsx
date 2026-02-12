@@ -444,8 +444,8 @@ export default function App() {
         if (totalCoresOnBoard === 2) {
           handleMergeSuccess([draggedOrb, hit]);
         } else {
-          // Store the merged orb for display later
-          setMergedOrbs(prev => prev.includes(hit) ? prev : [...prev, hit]);
+          // Store the merged orb for display later (check by ID to avoid duplicates)
+          setMergedOrbs(prev => prev.some(o => o.id === hit.id) ? prev : [...prev, hit]);
           setActiveOrbs(prev => prev.filter(o => o.id !== hit.id));
         }
       } else if (hit.type === 'decoy') {
@@ -456,8 +456,14 @@ export default function App() {
 
   const handleMergeSuccess = (finalOrbs) => {
     const scenario = SCENARIOS[level];
-    // Combine previously merged orbs with the final two
-    setMergedOrbs(prev => [...prev, ...finalOrbs]);
+    // Combine previously merged orbs with the final two (filter duplicates by ID)
+    setMergedOrbs(prev => {
+      const allOrbs = [...prev, ...finalOrbs];
+      const uniqueOrbs = allOrbs.filter((orb, index) => 
+        allOrbs.findIndex(o => o.id === orb.id) === index
+      );
+      return uniqueOrbs;
+    });
     setScore(prev => prev + 300 + (timeLeft * 20));
     setCompletedLevels(prev => prev.includes(level) ? prev : [...prev, level]);
     setFeedback({
