@@ -389,9 +389,11 @@ export default function App() {
     setTimeLeft(Math.max(10, 25 - (lvlIndex * 2))); 
     setGameState('playing');
     setFeedback(null);
+    setMergedOrbs([]);
   };
 
   const handleTimeOut = () => {
+    setMergedOrbs([]);
     setFeedback({
       type: 'failure',
       title: 'Structural Inertia',
@@ -440,8 +442,10 @@ export default function App() {
       if (draggedOrb.type === 'core' && hit.type === 'core') {
         const totalCoresOnBoard = currentOrbs.filter(o => o.type === 'core').length;
         if (totalCoresOnBoard === 2) {
-          handleMergeSuccess();
+          handleMergeSuccess([draggedOrb, hit]);
         } else {
+          // Store the merged orb for display later
+          setMergedOrbs(prev => prev.includes(hit) ? prev : [...prev, hit]);
           setActiveOrbs(prev => prev.filter(o => o.id !== hit.id));
         }
       } else if (hit.type === 'decoy') {
@@ -450,10 +454,10 @@ export default function App() {
     }
   };
 
-  const handleMergeSuccess = () => {
+  const handleMergeSuccess = (finalOrbs) => {
     const scenario = SCENARIOS[level];
-    const coreOrbs = activeOrbs.filter(o => o.type === 'core');
-    setMergedOrbs(coreOrbs);
+    // Combine previously merged orbs with the final two
+    setMergedOrbs(prev => [...prev, ...finalOrbs]);
     setScore(prev => prev + 300 + (timeLeft * 20));
     setCompletedLevels(prev => prev.includes(level) ? prev : [...prev, level]);
     setFeedback({
@@ -609,7 +613,7 @@ export default function App() {
               </h2>
               {SCENARIOS[level].poles.length > 2 && (
                 <p className="text-xs text-amber-400 font-bold mt-2 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">
-                  ⚠️ Hint: This level has {SCENARIOS[level].poles.length} poles to merge!
+                  ⚠️ Hint: This level has {SCENARIOS[level].poles.length} orbs to merge!
                 </p>
               )}
               
