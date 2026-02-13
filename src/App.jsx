@@ -749,17 +749,17 @@ export default function App() {
 
         {gameState === 'gameover' && (
           <div className="flex-1 flex items-center justify-center p-6 text-center overflow-y-auto">
-            <div className="max-w-lg w-full bg-slate-900 p-8 md:p-10 rounded-[3rem] shadow-2xl border border-slate-800">
-              <div className="w-16 h-16 bg-cyan-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-cyan-500/30">
-                <Award className="w-8 h-8 text-cyan-400" />
+            <div className="max-w-lg w-full bg-slate-900 p-10 md:p-12 rounded-[3rem] shadow-2xl border border-slate-800">
+              <div className="w-20 h-20 bg-cyan-500/10 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-cyan-500/30">
+                <Award className="w-10 h-10 text-cyan-400" />
               </div>
-              <h2 className="text-3xl font-black text-white mb-3 tracking-tighter">TRAINING COMPLETE</h2>
-              <div className="bg-gradient-to-br from-cyan-500 to-cyan-600 p-8 rounded-[2rem] mb-6 shadow-2xl shadow-cyan-500/20">
+              <h2 className="text-4xl font-black text-white mb-4 tracking-tighter">TRAINING COMPLETE</h2>
+              <div className="bg-gradient-to-br from-cyan-500 to-cyan-600 p-10 rounded-[2.5rem] mb-8 shadow-2xl shadow-cyan-500/20">
                 <div className="text-[10px] uppercase text-cyan-100 font-black tracking-widest mb-1">Final Cognition Score</div>
-                <div className="text-6xl font-black text-white tracking-tighter">{score}</div>
+                <div className="text-7xl font-black text-white tracking-tighter">{score}</div>
               </div>
 
-              <div className="bg-slate-800/50 rounded-2xl p-6 mb-6 border border-slate-700 border-dashed">
+              <div className="bg-slate-800/50 rounded-2xl p-6 mb-8 border border-slate-700 border-dashed">
                 <div className="flex items-center justify-center gap-2 mb-4">
                   <span className="text-lg font-black text-slate-500 uppercase tracking-wide">Leaderboard</span>
                   <span className="text-[9px] bg-amber-500/20 text-amber-400 px-2 py-1 rounded-full font-black uppercase">Under Construction</span>
@@ -781,27 +781,9 @@ export default function App() {
                 <p className="text-[10px] text-slate-600 mt-3">Coming soon...</p>
               </div>
 
-              <div className="bg-gradient-to-br from-slate-800 to-slate-800/50 rounded-2xl p-6 mb-6 border border-slate-700 text-left">
-                <h3 className="text-sm font-black text-cyan-400 uppercase tracking-widest mb-4 text-center">Continue Your Journey</h3>
-                <div className="space-y-4">
-                  <div className="flex gap-3">
-                    <span className="w-6 h-6 bg-cyan-500 text-slate-900 rounded-lg flex items-center justify-center text-xs font-black shrink-0">1</span>
-                    <p className="text-slate-300 text-sm leading-relaxed"><strong className="text-white">Go on a paradox quest.</strong> Purposefully do something against type. New experiences provide new frames and perspectives.</p>
-                  </div>
-                  <div className="flex gap-3">
-                    <span className="w-6 h-6 bg-cyan-500 text-slate-900 rounded-lg flex items-center justify-center text-xs font-black shrink-0">2</span>
-                    <p className="text-slate-300 text-sm leading-relaxed"><strong className="text-white">Shift perspectives.</strong> Take on a different persona. If you're in a big company, imagine being in a startup—and vice versa.</p>
-                  </div>
-                  <div className="flex gap-3">
-                    <span className="w-6 h-6 bg-cyan-500 text-slate-900 rounded-lg flex items-center justify-center text-xs font-black shrink-0">3</span>
-                    <p className="text-slate-300 text-sm leading-relaxed"><strong className="text-white">Do thought experiments.</strong> What if money wasn't an object? What if you had zero dollars? How does the answer change over different time frames?</p>
-                  </div>
-                </div>
-              </div>
-
               <button 
                 onClick={() => startLevel(0)}
-                className="w-full bg-cyan-500 text-slate-900 py-4 rounded-2xl font-black text-lg shadow-xl shadow-cyan-500/20 hover:bg-cyan-400 transition-all"
+                className="w-full bg-cyan-500 text-slate-900 py-5 rounded-2xl font-black text-lg shadow-xl shadow-cyan-500/20 hover:bg-cyan-400 transition-all"
               >
                 Restart Training
               </button>
